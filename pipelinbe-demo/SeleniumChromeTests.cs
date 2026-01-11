@@ -37,6 +37,7 @@ public class SeleniumChromeTests
 		Assert.That(title, Is.EqualTo("Selenium Test Page"));
 	}
 
+
 	[Test]
 	public void EnterUsername()
 	{
