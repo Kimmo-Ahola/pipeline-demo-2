@@ -2,7 +2,7 @@
 
 namespace pipelinbe_demo;
 
-public class Tests
+public class CalculatorTests
 {
 	private Calculator calculator;
 	[SetUp]
