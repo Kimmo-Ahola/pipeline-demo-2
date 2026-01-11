@@ -49,7 +49,7 @@ jobs:
         path: ./project
 
     - name: Run Unit Tests
-      run: dotnet test ./project/TestProject1.sln --no-build --configuration Release --verbosity normal --filter Category!=UI
+      run: dotnet test ./project/pipeline-demo.sln --no-build --configuration Release --verbosity normal --filter Category!=UI
 
   ui-tests:
     needs: unit-tests
@@ -70,4 +70,4 @@ jobs:
         path: ./project
 
     - name: Run UI Tests
-      run: dotnet test ./project/TestProject1.sln --no-build --configuration Release --verbosity normal --filter Category=UI
+      run: dotnet test ./project/pipeline-demo.sln --no-build --configuration Release --verbosity normal --filter Category=UI
