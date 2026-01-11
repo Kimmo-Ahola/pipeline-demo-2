@@ -1,0 +1,73 @@
+# We run our pipeline in stages, but instead of rebuilding we reuse with artifacts. This makes it faster to run.
+
+name: .NET Run In Stages Faster
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build Release
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish Project as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: project-artifact
+        path: ./  # Upload the entire repository so .csproj/.sln are available
+
+  unit-tests:
+    needs: build
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Download Project Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: project-artifact
+        path: ./project
+
+    - name: Run Unit Tests
+      run: dotnet test ./project/TestProject1.sln --no-build --configuration Release --verbosity normal --filter Category!=UI
+
+  ui-tests:
+    needs: unit-tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+
+    - name: Download Project Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: project-artifact
+        path: ./project
+
+    - name: Run UI Tests
+      run: dotnet test ./project/TestProject1.sln --no-build --configuration Release --verbosity normal --filter Category=UI
