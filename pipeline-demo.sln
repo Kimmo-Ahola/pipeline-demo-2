@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36518.9 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pipeline-demo", "pipelinbe-demo\pipeline-demo.csproj", "{FD3EA2BA-B601-4A41-AF84-FD015B7DAC96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pipeline-demo", "pipeline-demo\pipeline-demo.csproj", "{FD3EA2BA-B601-4A41-AF84-FD015B7DAC96}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "calc", "calc\calc.csproj", "{0106FD61-B4E8-4895-B4CB-AC3A006F2C7F}"
 EndProject
